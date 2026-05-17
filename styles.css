@@ -1,0 +1,565 @@
+:root {
+  color-scheme: dark;
+  --bg: #09090b;
+  --panel: #0b0b0d;
+  --panel-soft: #101014;
+  --line: #2b2b31;
+  --line-dim: #1b1b20;
+  --text: #d4d4d8;
+  --muted: #6f6f7a;
+  --muted-2: #4f4f58;
+  --green: #10d8a6;
+  --green-dim: rgba(16, 216, 166, 0.14);
+  --yellow: #f5c518;
+  --pink: #f04aaa;
+  --red: #ff6868;
+  --font: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 12px;
+  line-height: 1.45;
+  letter-spacing: 0;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input {
+  font: inherit;
+  letter-spacing: 0;
+}
+
+.topbar {
+  height: 48px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  background: #08080a;
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 22px;
+}
+
+.logo {
+  color: #f4f4f5;
+  font-size: 16px;
+}
+
+.brand a,
+.ticker em,
+.note,
+footer,
+.route,
+.limit,
+.field-row,
+.mini-head span:last-child {
+  color: var(--muted);
+  font-style: normal;
+  text-decoration: none;
+}
+
+.top-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.outline {
+  height: 34px;
+  min-width: 82px;
+  padding: 0 13px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid currentColor;
+  border-radius: 0;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.outline.hot {
+  color: var(--pink);
+}
+
+.outline.good {
+  color: var(--green);
+}
+
+.ticker {
+  height: 40px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 0 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  color: var(--muted);
+}
+
+.ticker strong,
+.data-panel strong,
+.readout strong {
+  color: #f4f4f5;
+  font-weight: 700;
+}
+
+.network {
+  margin-left: auto;
+  color: var(--muted-2);
+}
+
+.shell {
+  width: min(1320px, calc(100vw - 32px));
+  margin: 16px auto 48px;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  gap: 14px;
+  align-items: stretch;
+}
+
+.panel {
+  min-width: 0;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 0;
+}
+
+.chart-panel {
+  min-width: 0;
+  padding: 18px 18px 14px;
+  min-height: 464px;
+}
+
+.panel-head,
+.mini-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: center;
+}
+
+.chart-head {
+  margin-bottom: 12px;
+}
+
+.legend,
+.readout,
+.mini-head {
+  color: var(--muted);
+}
+
+.legend,
+.readout {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.key {
+  width: 14px;
+  height: 2px;
+  display: inline-block;
+}
+
+.supply-key {
+  background: var(--green);
+}
+
+.price-key {
+  background: var(--yellow);
+}
+
+.box {
+  border: 1px solid var(--line);
+  background: #0d0d10;
+  padding: 3px 8px;
+}
+
+.box.tight {
+  padding: 2px 7px;
+}
+
+.canvas-wrap {
+  position: relative;
+  width: 100%;
+  height: 322px;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.note {
+  margin: 12px 0 0;
+  font-size: 11px;
+}
+
+.note.long {
+  margin: 10px 0 18px;
+}
+
+.trade-panel {
+  min-width: 0;
+  padding: 18px;
+}
+
+.tabs {
+  height: 50px;
+  border: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 18px;
+}
+
+.tabs button {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.tabs button.active {
+  color: var(--green);
+  background: rgba(16, 216, 166, 0.16);
+}
+
+.field-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.amount-box {
+  height: 62px;
+  border: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  padding: 0 12px;
+  background: #0b0b0e;
+}
+
+.amount-box input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #f4f4f5;
+  font-size: 22px;
+}
+
+.amount-box input::placeholder {
+  color: #44444d;
+}
+
+.amount-box button {
+  border: 0;
+  background: transparent;
+  color: var(--green);
+  cursor: pointer;
+  padding: 0 8px;
+}
+
+.amount-box span {
+  color: var(--muted);
+}
+
+.limit {
+  margin-top: 6px;
+  text-align: right;
+  font-size: 11px;
+}
+
+.quote-box {
+  min-height: 130px;
+  border: 1px solid var(--line);
+  margin-top: 20px;
+  padding: 16px 14px;
+  background: #0a0a0c;
+}
+
+.quote-box p {
+  margin: 0 0 4px;
+}
+
+.quote-box a {
+  display: inline-block;
+  color: var(--muted);
+  margin-top: 36px;
+}
+
+.trade-btn {
+  width: 100%;
+  height: 52px;
+  margin-top: 18px;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  background: #1b1b20;
+  color: #777781;
+  cursor: not-allowed;
+}
+
+.trade-btn.ready {
+  color: var(--bg);
+  background: var(--green);
+  border-color: var(--green);
+  cursor: pointer;
+}
+
+.trade-btn.wait {
+  color: #f4f4f5;
+  background: #202026;
+  cursor: progress;
+}
+
+.route {
+  margin: 14px 0 0;
+  text-align: center;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+.data-panel {
+  margin-top: 16px;
+  padding: 18px;
+}
+
+.data-panel h2,
+.data-panel h3 {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.data-panel h2 {
+  margin-bottom: 14px;
+}
+
+.data-panel h3 {
+  font-size: 11px;
+  margin-bottom: 6px;
+  color: var(--muted-2);
+}
+
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 36px;
+}
+
+.data-grid p {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 2px 0;
+  color: var(--muted);
+}
+
+.section-title {
+  color: var(--muted);
+  margin: 18px 0 8px;
+}
+
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.small-chart {
+  height: 310px;
+  padding: 14px;
+}
+
+.small-chart canvas {
+  margin-top: 8px;
+  height: 256px;
+}
+
+.flow-panel {
+  height: 188px;
+  padding: 14px;
+}
+
+.flow-panel canvas {
+  height: 118px;
+  margin-top: 8px;
+}
+
+.axis-foot {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted-2);
+  font-size: 11px;
+}
+
+.manifesto {
+  margin-top: 16px;
+  padding: 18px;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+footer {
+  text-align: center;
+  margin-top: 26px;
+  font-size: 11px;
+}
+
+.green {
+  color: var(--green) !important;
+}
+
+.yellow {
+  color: var(--yellow) !important;
+}
+
+.pink {
+  color: var(--pink) !important;
+}
+
+.red {
+  color: var(--red) !important;
+}
+
+@media (max-width: 980px) {
+  .hero-grid,
+  .compare-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .trade-panel {
+    order: -1;
+  }
+
+  .data-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .topbar {
+    height: auto;
+    min-height: 48px;
+    align-items: flex-start;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .brand {
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .top-actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .outline {
+    width: 100%;
+    min-width: 74px;
+  }
+
+  .ticker {
+    height: auto;
+    min-height: 40px;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    padding: 8px 10px;
+    white-space: normal;
+    overflow: hidden;
+  }
+
+  .network {
+    flex-basis: 100%;
+    margin-left: 0;
+    text-align: right;
+  }
+
+  .shell {
+    width: 100%;
+    max-width: 100vw;
+    margin-top: 10px;
+    padding: 0 10px;
+  }
+
+  .chart-panel {
+    padding: 14px;
+  }
+
+  .chart-panel,
+  .trade-panel,
+  .data-panel,
+  .small-chart,
+  .flow-panel {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .canvas-wrap {
+    height: 260px;
+  }
+
+  .data-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .panel-head,
+  .mini-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .readout {
+    align-items: flex-start;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .box,
+  .note,
+  .mini-head,
+  .data-grid p {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+}

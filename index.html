@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#09090b" />
+    <title>sato test</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/ethers@6.13.5/dist/ethers.umd.min.js"></script>
+    <script defer src="./app.js"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="logo">sato</span>
+        <a href="https://sat0.org/" target="_blank" rel="noreferrer">whitepaper 2.0</a>
+      </div>
+      <div class="top-actions">
+        <a class="outline hot" href="https://sat0.org/" target="_blank" rel="noreferrer">uniswap</a>
+        <button id="connectBtn" class="outline good" type="button">connect</button>
+      </div>
+    </header>
+
+    <section class="ticker">
+      <span>price <strong id="tickerPrice" class="pink">$0.9435</strong></span>
+      <span class="box">burn <strong id="tickerBurn" class="red">$0.7080</strong> / mint <strong id="tickerMint" class="green">$1.27</strong></span>
+      <span>reserve <strong id="tickerReserve">$3.85m</strong> <em id="tickerReserveEth">(1663.1583 bnb)</em></span>
+      <span>circulating <strong id="tickerCirc">19.37m</strong></span>
+      <span id="networkPill" class="network">bsc testnet</span>
+    </section>
+
+    <main class="shell">
+      <section class="hero-grid">
+        <article class="panel chart-panel">
+          <div class="panel-head chart-head">
+            <div class="legend">
+              <span>curve</span>
+              <span class="key supply-key"></span><span>supply</span>
+              <span class="key price-key"></span><span>price</span>
+            </div>
+            <div class="readout">
+              <span>supply <strong id="chartSupply" class="green">19.3m</strong> of <strong>20m</strong></span>
+              <span>forward (drift <strong class="red">713k</strong>)</span>
+              <span>price <strong id="chartPrice" class="pink">$0.9435</strong></span>
+              <span class="box tight">burn <strong id="chartBurn" class="red">$0.7080</strong> / mint <strong id="chartMint" class="green">$1.27</strong></span>
+            </div>
+          </div>
+          <div class="canvas-wrap">
+            <canvas id="curveCanvas" aria-label="sato curve"></canvas>
+          </div>
+          <p class="note">
+            21m pure-math asymptote that the curve approaches but never touches. minting continues indefinitely; price grows exponentially with cumulative native coin.
+          </p>
+        </article>
+
+        <aside class="panel trade-panel">
+          <div class="tabs" role="tablist" aria-label="trade mode">
+            <button id="mintTab" class="active" type="button">mint</button>
+            <button id="burnTab" type="button">burn</button>
+          </div>
+
+          <div class="field-row">
+            <span id="inputLabel">pay</span>
+            <span id="balanceLabel">bal: --</span>
+          </div>
+          <div class="amount-box">
+            <input id="amountInput" inputmode="decimal" autocomplete="off" placeholder="0.0" />
+            <button id="maxBtn" type="button">max</button>
+            <span id="unitLabel">eth</span>
+          </div>
+          <div id="limitLine" class="limit">max mint 5 BNB</div>
+
+          <div class="quote-box">
+            <p><strong id="quoteVerb" class="green">minting</strong> <span id="quoteOut">0.00 sato</span> for <span id="quoteIn">0.0000 bnb</span></p>
+            <p>price impact: <span id="impactText">0.00%</span></p>
+            <a href="https://sat0.org/" target="_blank" rel="noreferrer">trade on uniswap -></a>
+          </div>
+
+          <button id="tradeBtn" class="trade-btn" type="button" disabled>mint sato</button>
+          <p id="tradeHint" class="route">
+            calls SatoTestRouter via BSC testnet PoolManager<br />
+            <span id="routerAddress">0x22da...77EF</span>
+          </p>
+        </aside>
+      </section>
+
+      <section class="panel data-panel">
+        <h2>sato data</h2>
+        <div class="data-grid">
+          <div>
+            <h3>SUPPLY</h3>
+            <p><span>max</span><strong id="dataMax">20.79m</strong></p>
+            <p><span>circulating</span><strong id="dataCirc">19.37m</strong></p>
+            <p><span>holders</span><strong>8,281</strong></p>
+          </div>
+          <div>
+            <h3>PRICE</h3>
+            <p><span>market</span><strong id="dataPrice" class="pink">$0.9435</strong></p>
+            <p><span>burn</span><strong id="dataBurn" class="red">$0.7080</strong></p>
+            <p><span>mint</span><strong id="dataMint" class="green">$1.27</strong></p>
+          </div>
+          <div>
+            <h3>VALUATION</h3>
+            <p><span>mcap (fd)</span><strong id="dataFdv">$19.61m</strong></p>
+            <p><span>mcap (circ)</span><strong id="dataMcap">$18.28m</strong></p>
+          </div>
+          <div>
+            <h3>RESERVE</h3>
+            <p><span>liquidity</span><strong id="dataReserve">$3.85m</strong></p>
+            <p><span>bnb backing per sato</span><strong id="dataBacking">$0.199</strong></p>
+            <p><span>burn fees</span><strong id="dataFees">97.0714 bnb</strong></p>
+          </div>
+          <div>
+            <h3>ACTIVITY</h3>
+            <p><span>vol 24h</span><strong>$4.82m</strong></p>
+            <p><span>txns 24h</span><strong>4,296</strong></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-title">issuance comparison</section>
+      <section class="compare-grid">
+        <article class="panel small-chart">
+          <div class="mini-head">
+            <span>bitcoin issuance</span>
+            <span>now: 3.125 btc/block</span>
+          </div>
+          <canvas id="btcCanvas" aria-label="bitcoin issuance"></canvas>
+        </article>
+        <article class="panel small-chart">
+          <div class="mini-head">
+            <span>sato issuance</span>
+            <span>now: <span id="satoRateNow">2k sato/bnb</span></span>
+          </div>
+          <canvas id="satoCanvas" aria-label="sato issuance"></canvas>
+        </article>
+      </section>
+      <p class="note long">
+        bitcoin issues in discrete halving epochs. sato issues continuously: the marginal mint rate decays smoothly with each unit of inflow and never reaches zero.
+      </p>
+
+      <section class="panel flow-panel">
+        <div class="mini-head">
+          <span>mint flows 24h (supply change / hour)</span>
+          <span>mint <strong class="green">+77.14k sato</strong> burn <strong class="red">-1.21k sato</strong> net <strong class="green">+75.93k sato</strong></span>
+        </div>
+        <canvas id="flowCanvas" aria-label="mint flows"></canvas>
+        <div class="axis-foot"><span>24h ago</span><span>now</span></div>
+      </section>
+
+      <section class="panel manifesto">
+        a specter has returned to ethereum: the specter of code that runs without an operator.
+      </section>
+
+      <footer>
+        sato has no socials. no twitter, no telegram, no discord. anyone claiming to represent sato is impersonating it.
+      </footer>
+    </main>
+  </body>
+</html>
